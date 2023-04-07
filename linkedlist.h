@@ -12,18 +12,41 @@ private:
         Node *next;
         Node(TYPE item) : data(item), next(nullptr) {}
     };
-    Node *head;
-    Node *tail;
+    Node *head = nullptr;
+    Node *tail = nullptr;
 
 public:
     LinkedList() : head(nullptr), size(0) {}
     void insert(TYPE item, int index)
     {
+        Node *temp = new node(item);
+        if (head == nullptr)
+        {
+            head = temp;
+            return head;
+        }
+        else if (index == 0)
+        {
+            temp->next = head;
+            head = temp;
+            return head;
+        }
+        else
+        {
+            Node *current = head;
+            for (int i = 0; i < index - 1; i++)
+            {
+                current = current->next;
+            }
+            temp->next = current->next;
+            current->next = temp;
+            return head;
+        }
     }
     // The following function prototype is inspired from https://www.geeksforgeeks.org/delete-a-linked-list-node-at-a-given-position/
     void remove(int index)
     {
-        if (*head == NULL)
+        if (head == nullptr)
         {
             stringstream sstream;
             sstream << "Index " << index << " is out of bounds";
@@ -31,25 +54,26 @@ public:
             getline(sstream, msg);
             throw IndexOutOfBounds(msg);
         }
-        Node *newNode = *head;
         if (index == 0)
         {
-            *head = temp->next;
-            free(temp);
+            Node *temp = head;
+            head = head->next;
+            delete temp;
             return;
         }
-        for (int i = 0; temp != NULL && i < index - 1; i++)
-            temp = temp->next;
-        if (temp == NULL || temp->next == NULL)
+        Node *current = head;
+        for (int i = 0; current != nullptr && i < index - 1; i++)
+            current = current->next;
+        if (current == nullptr || current->next == nullptr)
             return;
-        Node *next = temp->next->next;
-        free(temp->next);
-        temp->next = next;
+        Node *temp = current->next;
+        current->next = temp->next;
+        delete temp;
     }
 
     TYPE at(int index)
     {
-        if (index < 0 || index > size)
+        if (index < 0 || index >= size)
         {
             stringstream sstream;
             sstream << "Index " << index << " is out of bounds";
@@ -59,12 +83,12 @@ public:
         }
         int count = 0;
         Node *current = head;
-        while (current.next != NULL)
+        while (current != nullptr)
         {
-            current = current.next;
-            count++;
             if (count == index)
-                break;
+                return break;
+            count++;
+            current = current-next;
         }
         return current->data;
     }
@@ -75,13 +99,11 @@ public:
 
     int search(TYPE item, int (*cmp)(const TYPE &item1, const TYPE &item2))
     {
-        int count = 0;
         Node *current = head;
-        while (current.next != NULL)
+        while (current.next != nullptr)
         {
             current = current.next;
-            count++;
-            if (count == index)
+            if (*item1 == *item2)
                 break;
         }
         return index;
