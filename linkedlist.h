@@ -43,7 +43,6 @@ public:
             return head;
         }
     }
-    // The following function prototype is inspired from https://www.geeksforgeeks.org/delete-a-linked-list-node-at-a-given-position/
     void remove(int index)
     {
         if (head == nullptr)
