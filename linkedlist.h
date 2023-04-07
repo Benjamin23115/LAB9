@@ -88,7 +88,7 @@ public:
             if (count == index)
                 return break;
             count++;
-            current = current-next;
+            current = current - next;
         }
         return current->data;
     }
@@ -100,13 +100,15 @@ public:
     int search(TYPE item, int (*cmp)(const TYPE &item1, const TYPE &item2))
     {
         Node *current = head;
-        while (current.next != nullptr)
+        int index = 0;
+        while (current != nullptr)
         {
-            current = current.next;
-            if (*item1 == *item2)
-                break;
+            if (cmp(item, current->data) == 0)
+                return index;
+            current = current->next;
+            index++;
         }
-        return index;
+        return -1;
     }
 
     int getSize()
