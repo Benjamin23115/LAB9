@@ -83,11 +83,12 @@ bool testList(List<int> &list)
 
 int main(int argc, char *argv[])
 {
-	ArrayList<int> arrayList;
+	// ArrayList<int> arrayList;
 
-	bool testResult = testList(arrayList);
+	// bool testResult = testList(arrayList);
 
-	cout << boolalpha << "Test result is " << testResult << endl;
+	// cout << boolalpha << "Test result is " << testResult << endl;
+	cout << "=====================================================" << endl;
 
 	// The following is a sample of how you should be able to use the testList function to test
 	// your linked list implementation.
@@ -95,7 +96,8 @@ int main(int argc, char *argv[])
 
 	cout << "Testing LinkedList" << endl;
 
-	testResult = testList(linkedList);
+	bool testResult = testList(linkedList);
+	cout << boolalpha << "Test result is " << testResult << endl;
 
 	return 0;
 }
